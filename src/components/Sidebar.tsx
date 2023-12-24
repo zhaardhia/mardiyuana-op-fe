@@ -44,7 +44,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/course" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
                 <Icon icon="tdesign:course" width={20} className="text-slate-100" /> Course
               </Link>
             </li>
@@ -54,7 +54,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/teacher" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
                 <Icon icon="ph:chalkboard-teacher-duotone" width={20} className="text-slate-100" />Teacher
               </Link>
             </li>

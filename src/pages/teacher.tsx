@@ -29,7 +29,7 @@ const testOption = [
   { value: "Ahay", label: "Hoho" },
 ]
 
-const Student = () => {
+const Teacher = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [testSelect, setTestSelect] = useState<Option>();
   const onPageChange = (page: number) => setCurrentPage(page);
@@ -41,7 +41,7 @@ const Student = () => {
     <Layout>
       <div className="w-[90%] mx-auto ">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl">Daftar Murid (Student List)</h1>
+          <h1 className="text-2xl">Daftar Guru (Teacher List)</h1>
           <ModalAddEditStudent />
         </div>
         <hr />
@@ -110,6 +110,6 @@ const Student = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Student), {
+export default dynamic(() => Promise.resolve(Teacher), {
   ssr: false,
 });
