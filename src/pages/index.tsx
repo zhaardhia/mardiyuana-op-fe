@@ -2,9 +2,21 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Layout from '@/components/Layout'
 import EventDashboard from '@/components/dashboard/EventDashboard'
+import { useEffect } from 'react'
 const inter = Inter({ subsets: ['latin'] })
-
+import axios from 'axios'
 export default function Home() {
+  useEffect(() => {
+    check()
+  }, [])
+
+  const check = async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/refresh-token`, {
+      withCredentials: true,
+      headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
+    })
+    console.log({wik: response})
+  }
   return (
     <Layout>
       <div className="w-[90%] mx-auto">
