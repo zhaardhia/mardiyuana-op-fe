@@ -39,7 +39,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/curriculum" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
                 <Icon icon="streamline:business-user-curriculum" width={20} className="text-slate-100" /> Curriculum
               </Link>
             </li>

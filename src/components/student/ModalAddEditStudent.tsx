@@ -50,11 +50,20 @@ export function ModalAddEditStudent() {
       }
     )
     console.log({postStudent})
-    toast({
-      title: "Berhasil menambahkan data murid!",
-      description: "Halaman akan refresh 5 detik dari sekarang. Silahkan cek data murid pada tabel yang tersedia",
-      className: "bg-white"
-    })
+
+    if (postStudent?.data?.statusCode === "000") {
+      toast({
+        title: "Berhasil menambahkan data murid!",
+        description: "Halaman akan refresh 5 detik dari sekarang. Silahkan cek data murid pada tabel yang tersedia",
+        className: "bg-white"
+      })
+    } else {
+      toast({
+        title: "Gagal menambahkan data murid.",
+        description: "Silahkan cek kembali data yang anda input, atau bisa melaporkan ke tim IT",
+        className: "bg-red-200"
+      })
+    }
     // Refresh the page after 5 seconds
     setTimeout(() => {
       window.location.reload(); // You can use other methods to refresh the page if needed
