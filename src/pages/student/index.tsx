@@ -182,7 +182,7 @@ const Student = () => {
               name="search-bar" 
               id="search-bar"
               placeholder="Cari nama murid"
-              className="px-3 py-1 border-[1px] rounded-lg w-[20rem]"
+              className="px-3 py-1 border-[2px] border-gray-100 rounded-lg w-[20rem]"
             />
           </div>
           <Table>

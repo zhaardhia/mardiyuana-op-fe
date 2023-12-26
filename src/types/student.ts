@@ -18,3 +18,26 @@ export interface EnrollStudentTypeListStudentTable {
   id: string,
   className: string
 }
+
+export type FormDataAddStudent = {
+  student: {
+    username: string;
+    fullname: string;
+    name: string;
+    email: string;
+    bornIn: string;
+    // bornAt: string;
+    phone: string | undefined;
+    startAcademicYear: string
+  },
+  parent: {
+    username: string;
+    fullname: string;
+    name: string;
+    email: string;
+    bornIn: string;
+    // bornAt: string;
+    phone: string;
+    startAcademicYear: string
+  }
+};
