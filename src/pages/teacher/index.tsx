@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import Layout from '@/components/Layout'
 import Select, { ActionMeta } from 'react-select';
 import { ModalAddEditStudent } from '@/components/student/ModalAddEditStudent';
@@ -21,20 +21,18 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import dynamic from 'next/dynamic';
+import { ModalAddEditTeacher } from '@/components/teacher/ModalAddEditTeacher';
 import { DebounceInput } from 'react-debounce-input';
 import { useSessionUser } from '@/contexts/SessionUserContext';
-import { ListStudentTableType } from '@/types'
-import moment from "moment"
-import Link from 'next/link';
+import { ListTeacherTableType } from '@/types';
+import moment from 'moment';
 
 type Option = { value: string; label: string };
 
 const optionFilter = [
-  { label: "Tahun ajaran aktif", value: "activeAcademicYear" },
-  { label: "Belum terdaftar tahun ajaran aktif", value: "notRegisteredAcademicYear" },
-  { label: "Lulus", value: "graduated" },
-  { label: "Dikeluarkan", value: "dropout" },
-  { label: "Mengundurkan diri", value: "resign" },
+  { label: "Semua", value: "" },
+  { label: "Guru Aktif", value: "active" },
+  { label: "Guru Pindah Sekolah / Keluar", value: "inactive" },
 ]
 
 const gparam = {
@@ -42,20 +40,22 @@ const gparam = {
   pageSize: 10,
 }
 
-const Student = () => {
-  const { state, axiosJWT } = useSessionUser()
+const Teacher = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectFilter, setSelectFilter] = useState<Option>();
-  const [searchStudentVal, setSearchStudentVal] = useState<string>('');
+  const [testSelect, setTestSelect] = useState<Option>();
 
-  const [studentData, setStudentData] = useState<ListStudentTableType[]>();
+  const { state, axiosJWT, refreshToken, dispatch } = useSessionUser()
+  const [selectFilter, setSelectFilter] = useState<Option>({ label: "Guru Aktif", value: "active" });
+  const [searchTeacherVal, setSearchTeacherVal] = useState<string>('');
+
+  const [teacherData, setTeacherData] = useState<ListTeacherTableType[]>();
   const [totalData, setTotalData] = useState<number | null>();
   const [totalPages, setTotalPages] = useState<number>(10);
   const [nextPage, setNextPage] = useState<number | null>();
-
-  useEffect(() => {
+  
+  React.useEffect(() => {
     fetchData()
-  }, [selectFilter, currentPage, searchStudentVal])
+  }, [selectFilter, currentPage, searchTeacherVal])
 
   const onPageChange = (page: number) => setCurrentPage(page);
 
@@ -65,13 +65,13 @@ const Student = () => {
   }
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchStudentVal(e.target.value);
+    setSearchTeacherVal(e.target.value);
   }
 
   const fetchData = async () => {
     try {
       console.log({beforeFetch: gparam})
-      const response = await axiosJWT.get(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin-student/list-student-table?page=${gparam.page}&pageSize=${gparam.pageSize}&filterBy=${selectFilter?.value}&studentName=${searchStudentVal}`, {
+      const response = await axiosJWT.get(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin-teacher/list-teacher-table?page=${gparam.page}&pageSize=${gparam.pageSize}&filterBy=${selectFilter?.value}&teacherName=${searchTeacherVal}`, {
         headers: {
           Authorization: `Bearer ${state?.token}`
         }
@@ -79,7 +79,7 @@ const Student = () => {
       console.log({response})
 
       if (response?.data?.statusCode === "000") {
-        setStudentData(response?.data?.data?.studentData);
+        setTeacherData(response?.data?.data?.teacherData);
         setTotalData(response?.data?.data?.totalData);
         setTotalPages(response?.data?.data?.totalPages);
         setNextPage(response?.data?.data?.nextPage);
@@ -153,10 +153,10 @@ const Student = () => {
 
   return (
     <Layout>
-      <div className="w-[90%] mx-auto pb-10">
+      <div className="w-[90%] mx-auto ">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl">Daftar Murid (Student List)</h1>
-          <ModalAddEditStudent />
+          <h1 className="text-2xl">Daftar Guru (Teacher List)</h1>
+          <ModalAddEditTeacher isEdit={false} />
         </div>
         <hr />
         <div className="mt-5">
@@ -164,7 +164,7 @@ const Student = () => {
             <Select
               className="basic-single w-[20rem] rounded-xl"
               classNamePrefix="select"
-              defaultValue={ optionFilter[0] }
+              defaultValue={optionFilter[1]}
               // isLoading={isLoading}
               value={selectFilter}
               isClearable={false}
@@ -181,7 +181,7 @@ const Student = () => {
               type="text" 
               name="search-bar" 
               id="search-bar"
-              placeholder="Cari nama murid"
+              placeholder="Cari nama guru"
               className="px-3 py-1 border-[2px] border-gray-100 rounded-lg w-[20rem]"
             />
           </div>
@@ -190,25 +190,25 @@ const Student = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>Nama</TableHead>
-                <TableHead>Kelas</TableHead>
-                <TableHead>Murid Sejak</TableHead>
-                <TableHead>Tempat Tanggal Lahir</TableHead>
-                <TableHead>Nama Orang Tua</TableHead>
-                <TableHead>Telepon Orang Tua</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>No. Telpon</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Menjadi Guru Semenjak</TableHead>
+                <TableHead>Enroll Tahun Ajaran Aktif</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {studentData && studentData.length > 0 && studentData?.map((data: ListStudentTableType) => {
+              {teacherData && teacherData.length > 0 && teacherData?.map((data: ListTeacherTableType) => {
                 return (
                   <TableRow>
-                    <TableCell className=""><Link href={`/student/${data?.id}`}>{data?.fullname}</Link></TableCell>
-                    <TableCell>{data?.enrollment_student?.className || "-"}</TableCell>
-                    <TableCell>{moment(data?.createdDate).format('LL')}</TableCell>
-                    <TableCell className="">{data?.bornIn}, {moment(data?.bornAt).format("DD MMMM YYYY")}</TableCell>
-                    <TableCell>{data?.parent?.fullname}</TableCell>
-                    <TableCell>{data?.parent?.phone || "-"}</TableCell>
-                    <TableCell>Edit</TableCell>
+                    <TableCell className="font-medium">{data.fullname}</TableCell>
+                    <TableCell>{data.email}</TableCell>
+                    <TableCell>{data.phone}</TableCell>
+                    <TableCell className="font-medium">{data.status}</TableCell>
+                    <TableCell>{moment(data.createdDate).format("DD MMMM YYYY")}</TableCell>
+                    <TableCell>Detail</TableCell>
+                    <TableCell><ModalAddEditTeacher isEdit={true} defaultData={data} /></TableCell>
                   </TableRow>
                 )
               })}
@@ -219,26 +219,6 @@ const Student = () => {
         <div className="flex overflow-x-auto sm:justify-center mt-5">
           {totalData && (
             <Pagination>
-              {/* <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink 
-                    isActive
-                    onClick={() => gparam.page = 1}
-                  >1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">2</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href="#" />
-                </PaginationItem>
-              </PaginationContent> */}
               <PaginationContent>{renderPaginationItems()}</PaginationContent>
             </Pagination>
           )}
@@ -248,6 +228,6 @@ const Student = () => {
   )
 }
 
-export default dynamic(() => Promise.resolve(Student), {
+export default dynamic(() => Promise.resolve(Teacher), {
   ssr: false,
 });

@@ -29,37 +29,37 @@ const Sidebar = () => {
           </button>
           <ul className="space-y-2 font-medium">
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="material-symbols:home" width={20} className="text-slate-100" /> Dashboard
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="ic:twotone-content-copy" width={20} className="text-slate-100" /> Content
               </Link>
             </li>
             <li>
-              <Link href="/curriculum" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/curriculum" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="streamline:business-user-curriculum" width={20} className="text-slate-100" /> Curriculum
               </Link>
             </li>
             <li>
-              <Link href="/course" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/course" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="tdesign:course" width={20} className="text-slate-100" /> Course
               </Link>
             </li>
             <li>
-              <Link href="/student" className="flex items-center p-2 rounded-lgtext-white hover:bg-slate-500 gap-2">
+              <Link href="/student" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="ph:student-fill" width={20} className="text-slate-100" />Student
               </Link>
             </li>
             <li>
-              <Link href="/teacher" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/teacher" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="ph:chalkboard-teacher-duotone" width={20} className="text-slate-100" />Teacher
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-500 gap-2">
+              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="fluent-mdl2:open-enrollment" width={20} className="text-slate-100" />Enrollment
               </Link>
             </li>
