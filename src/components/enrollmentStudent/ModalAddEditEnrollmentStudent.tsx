@@ -40,7 +40,7 @@ const ModalAddEditEnrollmentStudent = ({ isEdit, defaultData, setStudentData, en
   const [selectedClass, setSelectedClass] = useState<Option | undefined>(selectOption?.find(opt => opt.label === enrollmentStudent?.className));
   const [selectedStatus, setSelectedStatus] = useState<Option | undefined>(optionStatusFilter?.find(status => status.value === enrollmentStudent?.status) || undefined);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  console.log("kelas", selectOption?.find(opt => opt.label === enrollmentStudent?.className), {selectedClass})
+
   useEffect(() => {
     setIsStudentCannotEnroll(false)
     setSelectedStatus(undefined)
@@ -126,7 +126,7 @@ const ModalAddEditEnrollmentStudent = ({ isEdit, defaultData, setStudentData, en
     }, 5000);
     setIsModalOpen(!isModalOpen)
   }
-  console.log({selectedClass, find: selectOption?.find(opt => opt.label === enrollmentStudent?.className), selectOption, enrollmentStudent})
+
   return (
     <Dialog
       open={isModalOpen}

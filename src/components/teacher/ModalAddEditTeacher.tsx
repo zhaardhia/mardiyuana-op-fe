@@ -29,24 +29,43 @@ export function ModalAddEditTeacher({ isEdit, defaultData }: ModalTeacherType) {
   const { state, axiosJWT, refreshToken, dispatch } = useSessionUser()
   const { toast } = useToast()
   const [bornAtTeacher, setBornAtTeacher] = React.useState<Date>(() => defaultData?.bornAt || new Date())
-  const [errorBornAtStudentInput, setErrorBornAtStudentInput] = React.useState<string>()
+  const [errorBornAtTeacherInput, setErrorBornAtTeacherInput] = React.useState<string>()
 
   const onSubmit = async (values: any) => {
-    if (!bornAtTeacher) return setErrorBornAtStudentInput("Tanggal lahir wajib diisi.")
+    if (!bornAtTeacher) return setErrorBornAtTeacherInput("Tanggal lahir wajib diisi.")
     values.bornAt = bornAtTeacher;
+    
     console.log({values})
     // return
-    const postTeacher = await axiosJWT.post(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/create-teacher`, 
-      {
-        ...values
-      },
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${state?.token}`
+
+    let postTeacher = null
+    if (isEdit) {
+      values.id = defaultData?.id
+      postTeacher = await axiosJWT.put(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin-teacher/edit-teacher`, 
+        {
+          ...values
+        },
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${state?.token}`
+          }
         }
-      }
-    )
+      )
+    } else {
+      postTeacher = await axiosJWT.post(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/create-teacher`, 
+        {
+          ...values
+        },
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${state?.token}`
+          }
+        }
+      )
+    }
+
     console.log({postTeacher})
 
     if (postTeacher?.data?.statusCode === "000") {
@@ -194,7 +213,7 @@ export function ModalAddEditTeacher({ isEdit, defaultData }: ModalTeacherType) {
                   // })}
                   defaultDate={defaultData?.bornAt && new Date(defaultData?.bornAt)}
                 />
-                {errorBornAtStudentInput && <small className="text-red-500">{errorBornAtStudentInput}</small>}
+                {errorBornAtTeacherInput && <small className="text-red-500">{errorBornAtTeacherInput}</small>}
               </div>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">

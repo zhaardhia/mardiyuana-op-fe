@@ -1,7 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 import Layout from '@/components/Layout'
 import Select, { ActionMeta } from 'react-select';
-import { ModalAddEditStudent } from '@/components/student/ModalAddEditStudent';
 import {
   Table,
   TableBody,
@@ -24,8 +23,11 @@ import dynamic from 'next/dynamic';
 import { ModalAddEditTeacher } from '@/components/teacher/ModalAddEditTeacher';
 import { DebounceInput } from 'react-debounce-input';
 import { useSessionUser } from '@/contexts/SessionUserContext';
-import { ListTeacherTableType } from '@/types';
+import { ListTeacherTableType, TeacherStatus } from '@/types';
 import moment from 'moment';
+import { statusTeacher } from '@/utils/constant';
+import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 type Option = { value: string; label: string };
 
@@ -194,7 +196,6 @@ const Teacher = () => {
                 <TableHead>No. Telpon</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Menjadi Guru Semenjak</TableHead>
-                <TableHead>Enroll Tahun Ajaran Aktif</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
@@ -202,12 +203,16 @@ const Teacher = () => {
               {teacherData && teacherData.length > 0 && teacherData?.map((data: ListTeacherTableType) => {
                 return (
                   <TableRow>
-                    <TableCell className="font-medium">{data.fullname}</TableCell>
+                    <TableCell className="">
+                      <Link className="flex gap-2 items-center hover:underline" href={`/teacher/${data?.id}`}>
+                        {data?.fullname}
+                        <Icon icon="solar:to-pip-outline" className="text-lg" />
+                      </Link>
+                    </TableCell>
                     <TableCell>{data.email}</TableCell>
                     <TableCell>{data.phone}</TableCell>
-                    <TableCell className="font-medium">{data.status}</TableCell>
+                    <TableCell className="font-medium">{statusTeacher[data.status as keyof TeacherStatus]}</TableCell>
                     <TableCell>{moment(data.createdDate).format("DD MMMM YYYY")}</TableCell>
-                    <TableCell>Detail</TableCell>
                     <TableCell><ModalAddEditTeacher isEdit={true} defaultData={data} /></TableCell>
                   </TableRow>
                 )

@@ -1,3 +1,4 @@
+import { EnrolledAcademicYearsTeacherType } from "./academicYear"
 export interface ListTeacherTableType {
   id: string,
   fullname: string,
@@ -31,3 +32,23 @@ export type FormDataAddTeacher = {
   // bornAt: string;
   phone: string | undefined;
 };
+
+export type TeacherStatus = {
+  ACTIVE: string
+  INACTIVE: string
+}
+
+export type TeacherDetail = {
+  id: string
+  fullname: string
+  name: string
+  email: string
+  phone: string | null
+  status: string
+  createdDate: string
+  bornIn: string
+  bornAt: Date
+  startAt: Date
+  endAt: Date | null
+  enrolledAcademicYears: EnrolledAcademicYearsTeacherType[] | undefined
+}

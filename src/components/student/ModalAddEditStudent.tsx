@@ -15,20 +15,22 @@ import { useForm } from "react-hook-form";
 import { validator } from "@/utils/validator"
 import { useSessionUser } from "@/contexts/SessionUserContext"
 import React, { ReactNode } from "react"
-import { FormDataAddStudent } from "@/types"
+import { FormDataAddStudent, ListStudentTableType } from "@/types"
 import { Datepicker } from 'flowbite-react';
 import { useToast } from "@/components/ui/use-toast"
 
-// import 'flowbite/css/flowbite.css';  // Adjust the path based on your project structure
+interface ModalStudentType {
+  isEdit: boolean
+  defaultData?: ListStudentTableType | undefined
+}
 
-
-export function ModalAddEditStudent() {
+export function ModalAddEditStudent({ isEdit, defaultData }: ModalStudentType) {
   const { register, handleSubmit, formState: { errors } } = useForm<FormDataAddStudent>();
   const { state, axiosJWT, refreshToken, dispatch } = useSessionUser()
   const { toast } = useToast()
-  const [bornAtStudent, setBornAtStudent] = React.useState<Date>()
+  const [bornAtStudent, setBornAtStudent] = React.useState<Date>(() => defaultData?.bornAt || new Date())
   const [errorBornAtStudentInput, setErrorBornAtStudentInput] = React.useState<string>()
-  const [bornAtParent, setBornAtParent] = React.useState<Date>()
+  const [bornAtParent, setBornAtParent] = React.useState<Date>(() => defaultData?.parent?.bornAt || new Date())
   const [errorBornAtParentInput, setErrorBornAtParentInput] = React.useState<string>()
 
   const onSubmit = async (values: any) => {
@@ -37,18 +39,36 @@ export function ModalAddEditStudent() {
     values.parent.bornAt = bornAtParent;
     values.student.bornAt = bornAtStudent;
     console.log({values})
+    // return
+    let postStudent = null
+    if (isEdit) {
+      values.parent.id = defaultData?.parent?.id
+      values.student.id = defaultData?.id
 
-    const postStudent = await axiosJWT.post(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/create-parent-student`, 
-      {
-        ...values
-      },
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${state?.token}`
+      postStudent = await axiosJWT.put(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin-student/edit-student-parent`, 
+        {
+          ...values
+        },
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${state?.token}`
+          }
         }
-      }
-    )
+      )
+    } else {
+      postStudent = await axiosJWT.post(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/create-parent-student`, 
+        {
+          ...values
+        },
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${state?.token}`
+          }
+        }
+      )
+    }
     console.log({postStudent})
 
     if (postStudent?.data?.statusCode === "000") {
@@ -69,17 +89,23 @@ export function ModalAddEditStudent() {
       window.location.reload(); // You can use other methods to refresh the page if needed
     }, 5000);
   }
-  console.log({errors})
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <Plus className="mr-2 h-4 w-4" /> Tambah Murid
-        </Button>
+        {isEdit ? (
+          <Button variant="outline">
+            Edit
+          </Button>
+        ) : (
+          <Button variant="outline">
+            <Plus className="mr-2 h-4 w-4" /> {isEdit ? "Edit" : "Tambah"} Murid
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white max-h-[90vh] overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>Tambah Murid</DialogTitle>
+          <DialogTitle>{isEdit ? "Edit" : "Tambah"}  Murid</DialogTitle>
           <DialogDescription>
             Silahkan input data data murid dan orang tua dengan benar.
           </DialogDescription>
@@ -96,7 +122,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="studentFullname"
-                  // defaultValue="Pedro Duarte"
+                  defaultValue={defaultData?.fullname}
                   className="w-full"
                   {...register("student.fullname", { 
                     required: validator.required,
@@ -113,7 +139,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="student.name"
-                  defaultValue=""
+                  defaultValue={defaultData?.name}
                   {...register("student.name", { 
                     required: validator.required,
                     minLength: validator.minLength(3),
@@ -130,7 +156,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="student.email"
-                  defaultValue=""
+                  defaultValue={defaultData?.email}
                   {...register("student.email", { 
                     required: "Email is required",
                     pattern: {
@@ -151,7 +177,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="student.username"
-                  defaultValue=""
+                  defaultValue={defaultData?.username}
                   {...register("student.username", { 
                     required: validator.required,
                     minLength: validator.minLength(3),
@@ -168,7 +194,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="student.bornIn"
-                  defaultValue=""
+                  defaultValue={defaultData?.bornIn}
                   {...register("student.bornIn", { 
                     required: validator.required,
                     minLength: validator.minLength(3),
@@ -191,6 +217,7 @@ export function ModalAddEditStudent() {
                   //   // minLength: validator.minLength(3),
                   //   // maxLength: validator.maxLength(20) 
                   // })}
+                  defaultDate={defaultData?.bornAt && new Date(defaultData?.bornAt)}
                 />
                 {errorBornAtStudentInput && <small className="text-red-500">{errorBornAtStudentInput}</small>}
               </div>
@@ -202,7 +229,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="student.phone"
-                  defaultValue=""
+                  defaultValue={defaultData?.phone}
                   {...register("student.phone", { 
                     // required: validator.required,
                     pattern: validator.phoneNotStrict,
@@ -223,7 +250,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="parent.fullname"
-                  defaultValue=""
+                  defaultValue={defaultData?.parent?.fullname}
                   {...register("parent.fullname", { 
                     required: validator.required,
                     minLength: validator.minLength(3),
@@ -240,7 +267,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="parent.name"
-                  defaultValue=""
+                  defaultValue={defaultData?.parent?.name}
                   {...register("parent.name", { 
                     required: validator.required,
                     minLength: validator.minLength(3),
@@ -257,7 +284,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="parent.email"
-                  defaultValue=""
+                  defaultValue={defaultData?.parent?.email}
                   {...register("parent.email", { 
                     required: "Email is required",
                     pattern: {
@@ -278,7 +305,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="parent.username"
-                  defaultValue=""
+                  defaultValue={defaultData?.parent?.username}
                   {...register("parent.username", { 
                     required: validator.required,
                     minLength: validator.minLength(3),
@@ -295,7 +322,7 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="parent.bornIn"
-                  defaultValue=""
+                  defaultValue={defaultData?.parent?.bornIn}
                   {...register("parent.bornIn", { 
                     required: validator.required,
                     minLength: validator.minLength(3),
@@ -318,6 +345,7 @@ export function ModalAddEditStudent() {
                   //   // minLength: validator.minLength(3),
                   //   // maxLength: validator.maxLength(20) 
                   // })}
+                  defaultDate={defaultData?.parent?.bornAt && new Date(defaultData?.parent?.bornAt)}
                 />
                 {errorBornAtParentInput && <small className="text-red-500">{errorBornAtParentInput}</small>}
               </div>
@@ -329,9 +357,9 @@ export function ModalAddEditStudent() {
               <div className="col-span-3">
                 <Input
                   id="parent.phone"
-                  defaultValue=""
+                  defaultValue={defaultData?.parent?.phone}
                   {...register("parent.phone", { 
-                    required: validator.required,
+                    // required: validator.required,
                     pattern: validator.phoneNotStrict,
                   })}
                 />

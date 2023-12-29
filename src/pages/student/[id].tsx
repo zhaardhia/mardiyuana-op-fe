@@ -59,7 +59,7 @@ const StudentDetail = () => {
       console.error(error)
     }
   }
-
+  console.log({studentData})
   return (
     <Layout>
       <div className="w-[90%] mx-auto pb-10">
@@ -84,27 +84,27 @@ const StudentDetail = () => {
                   <Input disabled defaultValue={studentData?.name} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="username">Email</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input disabled defaultValue={studentData?.email} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="name">No. Telp</Label>
+                  <Label htmlFor="phone">No. Telp</Label>
                   <Input disabled defaultValue={studentData?.phone || "-"} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="username">Status</Label>
+                  <Label htmlFor="status">Status</Label>
                   <Input disabled defaultValue={statusStudent[studentData?.status as keyof StudentStatus]} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="name">Tempat Tanggal Lahir</Label>
+                  <Label htmlFor="ttlStudent">Tempat Tanggal Lahir</Label>
                   <Input disabled defaultValue={`${studentData?.bornIn}, ${moment(studentData?.bornAt).format("DD MMMM YYYY")}`} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="username">Mulai Pada Tahun Ajaran</Label>
+                  <Label htmlFor="startacademicyear">Mulai Pada Tahun Ajaran</Label>
                   <Input disabled defaultValue={studentData?.startAcademicYear} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="username">Selesai Pada Tahun Ajaran</Label>
+                  <Label htmlFor="endacademicyear">Selesai Pada Tahun Ajaran</Label>
                   <Input disabled defaultValue={studentData?.endAcademicYear || "-"} />
                 </div>
               </CardContent>
@@ -121,15 +121,15 @@ const StudentDetail = () => {
                   <Input disabled defaultValue={studentData?.parent?.name} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="username">Email</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input disabled defaultValue={studentData?.parent?.email} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="name">No. Telp</Label>
+                  <Label htmlFor="phone">No. Telp</Label>
                   <Input disabled defaultValue={studentData?.parent?.phone || "-"} />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="name">Tempat Tanggal Lahir</Label>
+                  <Label htmlFor="ttl">Tempat Tanggal Lahir</Label>
                   <Input disabled defaultValue={`${studentData?.parent?.bornIn}, ${moment(studentData?.parent?.bornAt).format("DD MMMM YYYY")}`} />
                 </div>
               </CardContent>

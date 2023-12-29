@@ -2,9 +2,13 @@ import { EnrollmentStudentDetailPage } from './enrollmentStudent'
 export interface ListStudentTableType {
   id: string,
   fullname: string,
+  name: string,
+  email: string,
+  username: string,
   createdDate: string,
   bornIn: string,
-  bornAt: string,
+  bornAt: Date,
+  phone: string | undefined,
   parent: ParentTypeListStudentTable,
   enrollment_student: EnrollStudentTypeListStudentTable | undefined
 }
@@ -12,6 +16,11 @@ export interface ListStudentTableType {
 export interface ParentTypeListStudentTable {
   fullname: string,
   id: string,
+  name: string,
+  email: string,
+  username: string,
+  bornIn: string,
+  bornAt: Date,
   phone: string | undefined
 }
 

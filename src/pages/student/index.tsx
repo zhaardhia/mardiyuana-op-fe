@@ -26,6 +26,7 @@ import { useSessionUser } from '@/contexts/SessionUserContext';
 import { ListStudentTableType } from '@/types'
 import moment from "moment"
 import Link from 'next/link';
+import { Icon } from '@iconify/react';
 
 type Option = { value: string; label: string };
 
@@ -156,7 +157,7 @@ const Student = () => {
       <div className="w-[90%] mx-auto pb-10">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl">Daftar Murid (Student List)</h1>
-          <ModalAddEditStudent />
+          <ModalAddEditStudent isEdit={false} />
         </div>
         <hr />
         <div className="mt-5">
@@ -192,7 +193,6 @@ const Student = () => {
                 <TableHead>Nama</TableHead>
                 <TableHead>Kelas</TableHead>
                 <TableHead>Murid Sejak</TableHead>
-                <TableHead>Tempat Tanggal Lahir</TableHead>
                 <TableHead>Nama Orang Tua</TableHead>
                 <TableHead>Telepon Orang Tua</TableHead>
                 <TableHead>Action</TableHead>
@@ -202,13 +202,19 @@ const Student = () => {
               {studentData && studentData.length > 0 && studentData?.map((data: ListStudentTableType) => {
                 return (
                   <TableRow>
-                    <TableCell className=""><Link href={`/student/${data?.id}`}>{data?.fullname}</Link></TableCell>
+                    <TableCell className="">
+                      <Link className="flex gap-2 items-center hover:underline" href={`/student/${data?.id}`}>
+                        {data?.fullname}
+                        <Icon icon="solar:to-pip-outline" className="text-lg" />
+                      </Link>
+                    </TableCell>
                     <TableCell>{data?.enrollment_student?.className || "-"}</TableCell>
                     <TableCell>{moment(data?.createdDate).format('LL')}</TableCell>
-                    <TableCell className="">{data?.bornIn}, {moment(data?.bornAt).format("DD MMMM YYYY")}</TableCell>
                     <TableCell>{data?.parent?.fullname}</TableCell>
                     <TableCell>{data?.parent?.phone || "-"}</TableCell>
-                    <TableCell>Edit</TableCell>
+                    <TableCell>
+                      <ModalAddEditStudent isEdit={true} defaultData={data} />
+                    </TableCell>
                   </TableRow>
                 )
               })}
