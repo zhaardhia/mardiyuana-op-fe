@@ -34,8 +34,8 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
-                <Icon icon="ic:twotone-content-copy" width={20} className="text-slate-100" /> Content
+              <Link href="/event" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
+                <Icon icon="ic:twotone-content-copy" width={20} className="text-slate-100" /> Event
               </Link>
             </li>
             <li>

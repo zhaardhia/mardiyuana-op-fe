@@ -7,3 +7,4 @@ export * from './school_class';
 export * from './enrollmentTeacher';
 export * from './select';
 export * from './course';
+export * from './event';
