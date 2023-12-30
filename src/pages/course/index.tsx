@@ -19,6 +19,7 @@ import { useSessionUser } from '@/contexts/SessionUserContext'
 import { CourseList } from "@/types"
 import { useToast } from "@/components/ui/use-toast"
 import { Icon } from '@iconify/react';
+import Link from 'next/link'
 
 const Course: React.FC = () => {
   const { state, axiosJWT} = useSessionUser()
@@ -66,7 +67,6 @@ const Course: React.FC = () => {
       <div className="w-[90%] mx-auto ">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl">Daftar Pelajaran (Course List)</h1>
-          <ModalAddCourse />
         </div>
         <hr />
         <Accordion type="single" collapsible className="w-full">
@@ -75,11 +75,13 @@ const Course: React.FC = () => {
             {courseGrade7 && courseGrade7?.map((course: CourseList) => {
               return (
                 <AccordionContent>
-                  <Card className="p-3 hover:bg-slate-50 cursor-pointer">
-                    <CardDescription className="flex justify-between items-center">
-                      {course.name} <Icon icon="tabler:external-link" className="text-lg" />
-                    </CardDescription>
-                  </Card>
+                  <Link href={`/course/${course.id}`}>
+                    <Card className="p-3 hover:bg-slate-50 cursor-pointer">
+                      <CardDescription className="flex justify-between items-center">
+                        {course.name} <Icon icon="tabler:external-link" className="text-lg" />
+                      </CardDescription>
+                    </Card>
+                  </Link>
                 </AccordionContent>
               )
             })}
@@ -89,11 +91,13 @@ const Course: React.FC = () => {
             {courseGrade8 && courseGrade8?.map((course: CourseList) => {
               return (
                 <AccordionContent>
-                  <Card className="p-3 hover:bg-slate-50 cursor-pointer">
-                    <CardDescription className="flex justify-between items-center">
-                      {course.name} <Icon icon="tabler:external-link" className="text-lg" />
-                    </CardDescription>
-                  </Card>
+                  <Link href={`/course/${course.id}`}>
+                    <Card className="p-3 hover:bg-slate-50 cursor-pointer">
+                      <CardDescription className="flex justify-between items-center">
+                        {course.name} <Icon icon="tabler:external-link" className="text-lg" />
+                      </CardDescription>
+                    </Card>
+                  </Link>
                 </AccordionContent>
               )
             })}
@@ -103,11 +107,13 @@ const Course: React.FC = () => {
             {courseGrade9 && courseGrade9?.map((course: CourseList) => {
               return (
                 <AccordionContent>
-                  <Card className="p-3 hover:bg-slate-50 cursor-pointer">
-                    <CardDescription className="flex justify-between items-center">
-                      {course.name} <Icon icon="tabler:external-link" className="text-lg" />
-                    </CardDescription>
-                  </Card>
+                  <Link href={`/course/${course.id}`}>
+                    <Card className="p-3 hover:bg-slate-50 cursor-pointer">
+                      <CardDescription className="flex justify-between items-center">
+                        {course.name} <Icon icon="tabler:external-link" className="text-lg" />
+                      </CardDescription>
+                    </Card>
+                  </Link>
                 </AccordionContent>
               )
             })}

@@ -39,6 +39,11 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
+              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
+                <Icon icon="fluent-mdl2:open-enrollment" width={20} className="text-slate-100" />Academic
+              </Link>
+            </li>
+            <li>
               <Link href="/curriculum" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="streamline:business-user-curriculum" width={20} className="text-slate-100" /> Curriculum
               </Link>
@@ -56,11 +61,6 @@ const Sidebar = () => {
             <li>
               <Link href="/teacher" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="ph:chalkboard-teacher-duotone" width={20} className="text-slate-100" />Teacher
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
-                <Icon icon="fluent-mdl2:open-enrollment" width={20} className="text-slate-100" />Enrollment
               </Link>
             </li>
           </ul>
