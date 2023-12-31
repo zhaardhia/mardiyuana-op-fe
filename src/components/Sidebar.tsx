@@ -39,7 +39,12 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
+              <Link href="/announcement" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
+                <Icon icon="mdi:announcement-outline" width={20} className="text-slate-100" /> Announce
+              </Link>
+            </li>
+            <li>
+              <Link href="/academic-year" className="flex items-center p-2 rounded-lg text-white hover:bg-slate-400 gap-2">
                 <Icon icon="fluent-mdl2:open-enrollment" width={20} className="text-slate-100" />Academic
               </Link>
             </li>

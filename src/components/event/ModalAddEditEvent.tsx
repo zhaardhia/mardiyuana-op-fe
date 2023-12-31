@@ -60,6 +60,7 @@ const ModalAddEditEvent = ({ isEdit, defaultData, setEvents }: ModalEventType) =
         setMsgError(undefined)
       }, 5000)
     }
+    console.log({description})
     // return
     console.log({ image })
 
@@ -97,7 +98,8 @@ const ModalAddEditEvent = ({ isEdit, defaultData, setEvents }: ModalEventType) =
     {
       withCredentials: true,
       headers: {
-        Authorization: `Bearer ${state?.token}`
+        Authorization: `Bearer ${state?.token}`,
+        'Content-Type': 'application/json',
       }
     })
 
@@ -147,7 +149,7 @@ const ModalAddEditEvent = ({ isEdit, defaultData, setEvents }: ModalEventType) =
     option && setNeedVote(option)
   }
 
-  console.log({description})
+  // console.log({description})
   return (
     <Dialog
       open={isModalOpen}

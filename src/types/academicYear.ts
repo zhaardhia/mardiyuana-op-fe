@@ -9,3 +9,9 @@ export type EnrolledAcademicYearsTeacherType = {
   academicYearId: string
   status: string
 }
+
+export type AcademicYearData = {
+  id: string
+  academicYear: string
+  status: string
+}
