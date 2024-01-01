@@ -85,6 +85,7 @@ const AcademicYear = () => {
               <TableRow>
                 <TableHead>ID</TableHead>
                 <TableHead>Tahun Ajaran</TableHead>
+                <TableHead>Kurikulum</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
@@ -95,6 +96,7 @@ const AcademicYear = () => {
                   <TableRow>
                     <TableCell className="">{data.id}</TableCell>
                     <TableCell>{data.academicYear}</TableCell>
+                    <TableCell>{data.curriculumName}</TableCell>
                     <TableCell>
                       <Switch 
                         defaultChecked={data?.status === "ACTIVE"}

@@ -52,32 +52,42 @@ export function SessionUserProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
 
   const axiosJWT = axios.create()
-  axiosJWT.interceptors.request.use(async(config) => {
+  axiosJWT.interceptors.request.use(async(config: any) => {
     const currentDate = new Date();
-    // if (state?.expire < Math.floor(Date.now() / 1000)) {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/refresh-token`, {
-      withCredentials: true,
-    })
-    config.headers.Authorization = `Bearer ${response.data.data}`
-    dispatch({ type: "setToken", payload: response.data.data})
-    const decoded: JwtPayload = jwtDecode(response.data.data);
-    dispatch({ type: "setExpire", payload: decoded.exp})
-    dispatch({ type: "setUserInfo", payload: decoded})
-    dispatch({ type: "setIsLoggedIn", payload: true})
+    try {
+      // if (state?.expire < Math.floor(Date.now() / 1000)) {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/refresh-token`, {
+        withCredentials: true,
+      })
+      config.headers.Authorization = `Bearer ${response.data.data}`
+      dispatch({ type: "setToken", payload: response.data.data})
+      const decoded: JwtPayload = jwtDecode(response.data.data);
+      dispatch({ type: "setExpire", payload: decoded.exp})
+      dispatch({ type: "setUserInfo", payload: decoded})
+      dispatch({ type: "setIsLoggedIn", payload: true})
 
-    return config;
-  }, (error) => {
-    console.log(error)
-    dispatch({ type: "setIsLoggedIn", payload: false})
-    Promise.reject(error);
-    return router.push("/")
+      return config;
+    } catch (error) {
+      console.log(error)
+      dispatch({ type: "setIsLoggedIn", payload: false})
+      return Promise.reject(error);
+      // return router.push("/")
+    }
   })
+  // , (error) => {
+    // console.log(error)
+    // dispatch({ type: "setIsLoggedIn", payload: false})
+    // // Promise.reject(error);
+    // return router.push("/")
+  // })
+  
 
   const axiosBasic = axios.create()
 
 
   const refreshToken = async () => {
     try {
+      console.log("wawkaww")
       const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/admin/refresh-token`, {
         withCredentials: true,
         headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
@@ -90,6 +100,7 @@ export function SessionUserProvider({ children }: { children: ReactNode }) {
       dispatch({ type: "setIsLoggedIn", payload: true})
 
     } catch (error: any) {
+      console.log({error})
       dispatch({ type: "setIsLoggedIn", payload: false})
       if (error.response) {
         router.push("/")
