@@ -63,7 +63,7 @@ const Curriculum = () => {
       headers: {
         'Access-Control-Allow-Origin': '*', 
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${state?.token}`
+        // Authorization: `Bearer ${state?.token}`
       },
     })
 

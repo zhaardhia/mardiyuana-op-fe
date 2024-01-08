@@ -27,11 +27,11 @@ const SignIn = () => {
         }
       );
       console.log({login})
-      const expires = new Date();
-      expires.setTime(expires.getTime() + 1 + 24 * 60 * 60 * 1000);
-      const cookie = `${"refreshToken"}=${login?.data?.data?.refreshToken};expires=${expires.toUTCString()}`;
-      console.log({cookie})
-      document.cookie = cookie;
+      // const expires = new Date();
+      // expires.setTime(expires.getTime() + 1 + 24 * 60 * 60 * 1000);
+      // const cookie = `${"refreshToken"}=${login?.data?.data?.refreshToken};expires=${expires.toUTCString()}`;
+      // console.log({cookie})
+      // document.cookie = cookie;
       setMsgError('');
       // refreshToken()
       router.push("/");

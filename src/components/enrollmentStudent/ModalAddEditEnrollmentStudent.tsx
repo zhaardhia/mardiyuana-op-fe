@@ -152,7 +152,7 @@ const ModalAddEditEnrollmentStudent = ({ isEdit, defaultData, setStudentData, en
             Silahkan {isEdit ? "Edit" : "Tambah"} enrollment dengan teliti.
           </DialogDescription>
         </DialogHeader>
-        {isStudentCannotEnroll ? (
+        {!isEdit && isStudentCannotEnroll ? (
           <div>
             <p>Murid tidak dapat enroll tahun ajaran baru. Cek kelengkapan data sebelum enroll tahun ajaran baru.</p>
           </div>
@@ -203,25 +203,27 @@ const ModalAddEditEnrollmentStudent = ({ isEdit, defaultData, setStudentData, en
                   disabled
                 />
               </div>
-              <div className="flex flex-col gap-4">
-                <Label htmlFor="name" className="text-left">
-                  Kelas
-                </Label>
-                <Select
-                  className="basic-single w-[100%] rounded-xl"
-                  classNamePrefix="select"
-                  defaultValue={selectOption?.find(opt => opt.label === enrollmentStudent?.className)}
-                  // isLoading={isLoading}
-                  value={selectedClass}
-                  isClearable={false}
-                  isSearchable={false}
-                  name="class"
-                  options={selectOption}
-                  placeholder="Pilih Kelas"
-                  onChange={handleSelectClass}
-                  isDisabled={enrollmentStudent?.status === "ACTIVE" || enrollmentStudent?.status === "GRADUATED" }
-                />
-              </div>
+              {!isEdit && (
+                <div className="flex flex-col gap-4">
+                  <Label htmlFor="name" className="text-left">
+                    Kelas
+                  </Label>
+                  <Select
+                    className="basic-single w-[100%] rounded-xl"
+                    classNamePrefix="select"
+                    defaultValue={selectOption?.find(opt => opt.label === enrollmentStudent?.className)}
+                    // isLoading={isLoading}
+                    value={selectedClass}
+                    isClearable={false}
+                    isSearchable={false}
+                    name="class"
+                    options={selectOption}
+                    placeholder="Pilih Kelas"
+                    onChange={handleSelectClass}
+                    isDisabled={enrollmentStudent?.status === "ACTIVE" || enrollmentStudent?.status === "GRADUATED" }
+                  />
+                </div>
+              )}
             </div>
             <DialogFooter>
               <Button type="submit"

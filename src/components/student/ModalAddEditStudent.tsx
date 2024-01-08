@@ -32,7 +32,7 @@ export function ModalAddEditStudent({ isEdit, defaultData }: ModalStudentType) {
   const [errorBornAtStudentInput, setErrorBornAtStudentInput] = React.useState<string>()
   const [bornAtParent, setBornAtParent] = React.useState<Date>(() => defaultData?.parent?.bornAt || new Date())
   const [errorBornAtParentInput, setErrorBornAtParentInput] = React.useState<string>()
-
+  console.log({defaultData})
   const onSubmit = async (values: any) => {
     if (!bornAtStudent) return setErrorBornAtStudentInput("Tanggal lahir wajib diisi.")
     if (!bornAtParent) return setErrorBornAtParentInput("Tanggal lahir wajib diisi.")
@@ -103,7 +103,7 @@ export function ModalAddEditStudent({ isEdit, defaultData }: ModalStudentType) {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white max-h-[90vh] overflow-y-scroll">
+      <DialogContent className="sm:max-w-[425px] md:max-w-[600px] bg-white max-w-[90%] max-h-[90vh] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>{isEdit ? "Edit" : "Tambah"}  Murid</DialogTitle>
           <DialogDescription>
