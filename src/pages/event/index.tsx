@@ -15,6 +15,7 @@ import { EventData } from '@/types'
 import { useToast } from '@/components/ui/use-toast'
 import moment from 'moment'
 import { Button } from '@/components/ui/button'
+import ModalDelete from '@/components/ModalDelete'
 
 const Event = () => {
   const { state, axiosJWT} = useSessionUser()
@@ -68,8 +69,14 @@ const Event = () => {
                     <TableCell>
                       {data.eventVoteType === "VOTE" ? "Ya" : "Tidak"}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="flex gap-2 w-[10rem]">
                       <ModalAddEditEvent isEdit={true} defaultData={data} setEvents={setEvents} />
+                      <ModalDelete 
+                        endpoint='/mardiyuana/event'
+                        id={data.id}
+                        title={data.name || ""}
+                        type='Event'
+                      />
                     </TableCell>
                   </TableRow>
                 )

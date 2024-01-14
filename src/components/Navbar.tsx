@@ -12,13 +12,7 @@ const Navbar = () => {
           SMP Mardi Yuana
         </Link>
         <div className="flex items-center gap-3 p-2">
-          <p className="text-sm">Welcome, Jamets</p>
-          <div className="w-[2rem] h-[2rem] rounded-full bg-slate-100"></div>
-          {/* <Link href="/" className={cn(
-            "hover:border-[1px] hover:bg-slate-50 border-slate-300 p-1 rounded-xl w-[30px] h-[30px] flex justify-center"
-          )}><Icon icon="mdi:creation-outline" /></Link> */}
-          {/* <Link href="/profile" className="hover:border-[1px] hover:bg-slate-50 border-slate-300 p-1 rounded-xl w-[30px] h-[30px] flex justify-center"><Icon icon="iconamoon:profile" /></Link> */}
-          
+          <p className="text-sm">Welcome, <strong>Operator</strong>!</p>
         </div>
       </div>
     </nav>

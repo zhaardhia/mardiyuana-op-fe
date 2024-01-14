@@ -19,6 +19,7 @@ import { useSessionUser } from "@/contexts/SessionUserContext"
 import { useToast } from "@/components/ui/use-toast"
 import { Datepicker } from "flowbite-react"
 import ImageUploader from "../ImageUploader"
+import { Icon } from "@iconify/react"
 
 interface ModalEventType {
   isEdit: boolean
@@ -160,7 +161,7 @@ const ModalAddEditEvent = ({ isEdit, defaultData, setEvents }: ModalEventType) =
       <DialogTrigger asChild>
         {isEdit ? (
           <Button variant="outline">
-            Edit
+            <Icon icon={"mingcute:edit-line"}/>
           </Button>
         ) : (
           <Button variant="outline">

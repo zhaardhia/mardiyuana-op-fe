@@ -83,7 +83,6 @@ const AcademicYear = () => {
             {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
             <TableHeader>
               <TableRow>
-                <TableHead>ID</TableHead>
                 <TableHead>Tahun Ajaran</TableHead>
                 <TableHead>Kurikulum</TableHead>
                 <TableHead>Status</TableHead>
@@ -94,7 +93,6 @@ const AcademicYear = () => {
               {academicYears && academicYears?.length > 0 && academicYears?.map((data: AcademicYearData) => {
                 return (
                   <TableRow>
-                    <TableCell className="">{data.id}</TableCell>
                     <TableCell>{data.academicYear}</TableCell>
                     <TableCell>{data.curriculumName}</TableCell>
                     <TableCell>

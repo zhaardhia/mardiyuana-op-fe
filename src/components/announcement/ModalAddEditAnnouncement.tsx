@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label"
 import { AnnouncementData, Option } from "@/types"
 import { useSessionUser } from "@/contexts/SessionUserContext"
 import { useToast } from "@/components/ui/use-toast"
+import { Icon } from "@iconify/react"
 
 interface ModalAnnouncementType {
   isEdit: boolean
@@ -114,7 +115,7 @@ const ModalAddEditEvent = ({ isEdit, defaultData, setAnnouncements }: ModalAnnou
       <DialogTrigger asChild>
         {isEdit ? (
           <Button variant="outline">
-            Edit
+            <Icon icon="mingcute:edit-line"/>
           </Button>
         ) : (
           <Button variant="outline">

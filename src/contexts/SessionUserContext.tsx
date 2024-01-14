@@ -71,7 +71,6 @@ export function SessionUserProvider({ children }: { children: ReactNode }) {
       console.log(error)
       dispatch({ type: "setIsLoggedIn", payload: false})
       return Promise.reject(error);
-      // return router.push("/")
     }
   })
   // , (error) => {

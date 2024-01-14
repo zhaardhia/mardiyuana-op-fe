@@ -48,7 +48,7 @@ const SignIn = () => {
       </div>
       <div className='flex items-center md:w-auto w-full'>
         <div className='2xl:px-16 lg:px-12 px-5 lg:w-[448px] md:w-[400px] w-[90%] bg-white h-[30rem] rounded-lg bg-login-card border-0 flex flex-col justify-center items-center gap-10 md:mx-0 mx-auto'>
-          <div className='text-3xl font-semibold text-white'>Student Login</div>
+          <div className='text-3xl font-semibold text-white'>Operator Login</div>
           <div className="flex flex-col gap-4 w-[100%]">
             <input className='h-10 w-full rounded-xl p-2 text-slate-800' placeholder='Username' 
               onChange={(e) => setUsername(e.target.value)}

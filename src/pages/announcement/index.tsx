@@ -14,6 +14,7 @@ import ModalAddEditAnnouncement from '@/components/announcement/ModalAddEditAnno
 import { AnnouncementData } from '@/types'
 import { useToast } from '@/components/ui/use-toast'
 import moment from 'moment'
+import ModalDelete from '@/components/ModalDelete'
 
 const Announcement = () => {
   const { state, axiosJWT} = useSessionUser()
@@ -63,8 +64,14 @@ const Announcement = () => {
                     <TableCell>
                       {moment(data.createdDate).format("DD MMMM YYYY HH:mm")}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="flex gap-2">
                       <ModalAddEditAnnouncement isEdit={true} defaultData={data} setAnnouncements={setAnnouncements} />
+                      <ModalDelete 
+                        id={data.id}
+                        endpoint='/mardiyuana/announcement'
+                        title={data.title || ""}
+                        type="Announcement"
+                      />
                     </TableCell>
                   </TableRow>
                 )

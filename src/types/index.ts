@@ -9,3 +9,4 @@ export * from './select';
 export * from './course';
 export * from './event';
 export * from './announcement';
+export * from './dashboard';
