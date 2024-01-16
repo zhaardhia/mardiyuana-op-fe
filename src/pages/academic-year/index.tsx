@@ -14,6 +14,7 @@ import { Switch } from "@/components/ui/switch"
 import ModalAddEditAcademicYear from '@/components/academicYear/ModalAddEditAcademicYear'
 import { AcademicYearData } from '@/types'
 import { useToast } from '@/components/ui/use-toast'
+import ModalDelete from '@/components/ModalDelete'
 
 const AcademicYear = () => {
   const { state, axiosJWT} = useSessionUser()
@@ -102,8 +103,14 @@ const AcademicYear = () => {
                         onCheckedChange={(e: boolean) => handleSwitch(data.id, e)}
                       />
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="flex gap-2">
                       <ModalAddEditAcademicYear isEdit={true} defaultData={data} setAcademicYears={setAcademicYears} />
+                      {/* <ModalDelete 
+                        id={data.id}
+                        endpoint='/mardiyuana/announcement'
+                        title={data.academicYear || ""}
+                        type="Tahun Ajaran"
+                      /> */}
                     </TableCell>
                   </TableRow>
                 )

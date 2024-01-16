@@ -18,32 +18,42 @@ export default async function middleware(request: NextRequest) {
   const currentUser = request.cookies.get("refreshToken")?.value;
   console.log({currentUser})
 
-  // if (currentUser) {
-  //   const decoded: JwtPayload = jwtDecode(currentUser)
-  //   console.log({decoded, exp: Date.now() > decoded.exp, date: Date.now()})
-  //   if (
-  //     protectedRoutes.includes(request.nextUrl.pathname) &&
-  //     (Date.now() > decoded.exp * 1000)
-  //   ) {
-  //     request.cookies.delete("refreshToken");
-  //     const response = NextResponse.redirect(new URL("/sign-in", request.url));
-  //     response.cookies.delete("refreshToken");
+  if (currentUser) {
+    const decoded: JwtPayload = jwtDecode(currentUser)
+    console.log({decoded, exp: Date.now() > decoded.exp, date: Date.now()})
+    if (
+      // protectedRoutes.includes(request.nextUrl.pathname) &&
+      (Date.now() > decoded.exp * 1000)
+    ) {
+      request.cookies.delete("teacherToken");
+      const response = NextResponse.redirect(new URL("/sign-in", request.url));
+      response.cookies.delete("teacherToken");
 
-  //     return response;
-  //   }
+      return response;
+    }
 
-  //   if (authRoutes.includes(request.nextUrl.pathname) && currentUser) {
-  //     return NextResponse.redirect(new URL("/", request.url));
-  //   }
-  // } else {
-  //   console.log("sin in")
-  //   return NextResponse.redirect(new URL("/sign-in", request.url));
-  // }
+    if (authRoutes.includes(request.nextUrl.pathname) && currentUser) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  } else {
+    return NextResponse.redirect(new URL("/sign-in", request.url));
+  }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
   // matcher: '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  matcher: ['/', '/student', '/teacher'],
-
+  matcher: [
+    '/',
+    '/event',
+    '/announcement',
+    '/academic-year',
+    '/curriculum',
+    '/course',
+    '/course/:id*',
+    '/student',
+    '/student/:id',
+    '/teacher',
+    '/teacher/:id'
+  ],
 }
