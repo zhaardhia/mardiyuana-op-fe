@@ -41,44 +41,47 @@ export function ModalAddCourseSection({ isEdit, defaultData, totalLength, setCou
   }, [isModalOpen])
 
   const onSubmit = async () => {
-    const response = await axiosJWT.post(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/course-section/insert-update-course-section`, 
-    {
-      ...(isEdit && { id: defaultData?.id }),
-      name,
-      description,
-      courseId: id,
-      ...(!isEdit && { numberSection: totalLength })
-    },
-    {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${state?.token}`
-      }
-    })
-
-    if (response?.data?.statusCode === "000") {
-      toast({
-        title: "Berhasil menambahkan data bab pelajaran!",
-        description: "Silahkan cek data bab pelajaran pada kolom yang tersedia.",
-        className: "bg-white"
+    try {
+      const response = await axiosJWT.post(`${process.env.NEXT_PUBLIC_BASE_URL}/mardiyuana/course-section/insert-update-course-section`, 
+      {
+        ...(isEdit && { id: defaultData?.id }),
+        name,
+        description,
+        courseId: id,
+        ...(!isEdit && { numberSection: totalLength })
+      },
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${state?.token}`
+        }
       })
 
-      if (isEdit) {
-        setCourseSections(prevCourseSections =>
-          prevCourseSections.map(section =>
-            section.id === defaultData?.id ? { ...section, name, description } : section
-          )
-        );
-      } else {
-        const newObj: CourseSectionList | undefined = response?.data?.data
-        if (newObj) {
-          setCourseSections(prevSections => [...prevSections, { ...newObj}]);
-        }
-      }
+      if (response?.data?.statusCode === "000") {
+        toast({
+          title: "Berhasil menambahkan data bab pelajaran!",
+          description: "Silahkan cek data bab pelajaran pada kolom yang tersedia.",
+          className: "bg-white"
+        })
 
-    } else {
+        if (isEdit) {
+          setCourseSections(prevCourseSections =>
+            prevCourseSections.map(section =>
+              section.id === defaultData?.id ? { ...section, name, description } : section
+            )
+          );
+        } else {
+          const newObj: CourseSectionList | undefined = response?.data?.data
+          if (newObj) {
+            setCourseSections(prevSections => [...prevSections, { ...newObj}]);
+          }
+        }
+
+      }
+    } catch (error: any) {
+      console.error(error)
       toast({
-        title: "Gagal menambahkan data bab pelajaran.",
+        title: error.response.data.message,
         description: "Silahkan cek kembali data yang anda input, atau bisa melaporkan ke tim IT",
         className: "bg-red-200"
       })
