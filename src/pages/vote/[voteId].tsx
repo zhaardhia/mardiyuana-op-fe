@@ -41,7 +41,7 @@ const VoteDetail = () => {
         'Content-Type': 'application/json',
       },
     })
-
+    console.log({response})
     if (response?.status === 200) {
       setEvent(response?.data?.data)
       const findParentVote = response?.data?.data?.event_votes.find((vote: AllVoteEventVote) => vote.parentId === userId && vote.isAgree === "YES")
@@ -99,6 +99,54 @@ const VoteDetail = () => {
         <p className="text-md text-left italic">
           Ditulis tanggal: {moment(event?.createdDate).format("LL")}
         </p>
+      </div>
+
+      <div className="my-8 flex flex-col w-[90%] mx-auto max-w-[1400px]">
+        <h2 className="font-semibold text-2xl">Result Votes</h2>
+
+        <div className="flex flex-col gap-2">
+          <div
+            className={`${
+              voteChoosen === "YES" ? "border-green-500" : "border-transparent"
+            } border p-1 transition-all rounded-full w-1/4`}
+          >
+            <div
+              className="w-full h-8 bg-white rounded-full dark:bg-gray-700 cursor-pointer"
+            >
+              <div
+                className="w-full h-8 bg-white rounded-full dark:bg-gray-700 cursor-pointer"
+              >
+                <div className={cn(`h-8  ${widthPercentageAgree}  rounded-full  pl-2 flex items-center`,
+                  "bg-green-500 dark:bg-green-300",
+                  widthPercentageAgree === "w-[0]" && "w-0"
+                )}>
+                  <div className="flex items-center gap-3 text-black font-medium">
+                    <Icon icon="material-symbols:person" className="w-5 h-5" />
+                    <p className="w-32">{percentageAgree} Disagree</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={`p-1 transition-all rounded-full w-1/4`}
+          >
+            <div
+              className="w-full h-8 bg-white rounded-full dark:bg-gray-700 cursor-pointer"
+            >
+              <div className={cn(`h-8  ${widthPercentageDisagree}  rounded-full  pl-2 flex items-center`,
+                "bg-red-500 dark:bg-red-300",
+                widthPercentageDisagree === "w-[0]" && "w-0"
+              )}>
+                <div className="flex items-center gap-3 text-black font-medium">
+                  <Icon icon="material-symbols:person" className="w-5 h-5" />
+                  <p className="w-32">{percentageDisagree} Disagree</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   );
