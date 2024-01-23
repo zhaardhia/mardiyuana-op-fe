@@ -1,6 +1,6 @@
 import React, { useState, Dispatch, SetStateAction, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
+import { Plus, Edit } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -168,12 +168,12 @@ const ModalAddEditEnrollmentTeacher = ({ isEdit, defaultData }: ModalEnrollmentT
     >
       <DialogTrigger asChild>
         {isEdit ? (
-          <Button variant="outline">
-            Edit
+          <Button variant="outline" className="bg-blue-600 hover:bg-blue-700 text-white hover:text-white">
+            <Edit className="mr-2 h-4 w-4"/> Edit
           </Button>
         ) : (
-          <Button variant="outline">
-            <Plus className="mr-2 h-4 w-4" /> {isEdit ? "Edit" : "Tambah"} Enrollment Guru
+          <Button variant="outline" className="bg-[#2F9757] hover:bg-[#348f57] text-white hover:text-white">
+            <Plus className="mr-1 h-4 w-4" /> {isEdit ? "Edit" : "Tambah"} Enrollment
           </Button>
         )}
       </DialogTrigger>

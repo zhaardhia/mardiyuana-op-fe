@@ -85,11 +85,11 @@ const ModalAddEditAcademicYear = ({ isEdit, defaultData, setAcademicYears }: Mod
     >
       <DialogTrigger asChild>
         {isEdit ? (
-          <Button variant="outline">
+          <Button variant="outline" className="bg-blue-600 hover:bg-blue-700 text-white hover:text-white">
             Edit
           </Button>
         ) : (
-          <Button variant="outline">
+          <Button variant="outline" className="bg-[#2F9757] hover:bg-[#348f57] text-white hover:text-white">
             <Plus className="mr-2 h-4 w-4" /> {isEdit ? "Edit" : "Tambah"} Tahun Ajaran
           </Button>
         )}

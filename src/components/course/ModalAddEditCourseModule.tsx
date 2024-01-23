@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
+import { Plus, Edit } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -19,6 +19,7 @@ import { ModuleList, Option } from "@/types"
 import { useSessionUser } from "@/contexts/SessionUserContext"
 import { useToast } from "../ui/use-toast"
 import { useRouter } from "next/router"
+import { cn } from "@/lib/utils"
 
 type ModalAddEditCourseModuleType = {
   isEdit: boolean
@@ -141,8 +142,15 @@ export function ModalAddEditCourseModule({
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <Plus className="mr-2 h-4 w-4" /> {isEdit ? "Edit" : "Tambah"} Modul
+        <Button variant="outline" className={cn("text-white hover:text-white",
+          isEdit ? "bg-blue-600 hover:bg-blue-700" : "bg-[#2F9757] hover:bg-[#348f57]"
+        )}>
+          {isEdit ? (
+            <Edit className="mr-2 h-4 w-4"/>
+          ) : (
+            <Plus className="mr-2 h-4 w-4" />
+          )}
+          {isEdit ? "Edit" : "Tambah"} Bab
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">

@@ -118,7 +118,7 @@ const ModalAddEditEvent = ({ isEdit, defaultData, setAnnouncements }: ModalAnnou
             <Icon icon="mingcute:edit-line"/>
           </Button>
         ) : (
-          <Button variant="outline">
+          <Button variant="outline" className="bg-[#2F9757] hover:bg-[#348f57] text-white hover:text-white">
             <Plus className="mr-2 h-4 w-4" /> {isEdit ? "Edit" : "Tambah"} Pengumuman
           </Button>
         )}
